@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>ubarros - Hacker Style</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: monospace;
+      color: #00ff16;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .hack-frame {
+      position: absolute;
+      left: 30px;
+      top: 50px;
+      z-index: 10;
+    }
+
+    .glitchLine {
+      text-shadow: 0 0 5px #00ff16;
+      animation: glitch 2s infinite linear alternate;
+    }
+
+    @keyframes glitch {
+      0%   { opacity: 1; transform: translate(0px, 0px); }
+      25%  { opacity: 0.85; transform: translate(-1px, 1px); }
+      50%  { opacity: 0.7; transform: translate(1px, -1px); }
+      75%  { opacity: 0.9; transform: translate(1px, 1px); }
+      100% { opacity: 1; transform: translate(-1px, -1px); }
+    }
+
+    .hack-button {
+      margin-top: 20px;
+      background: #00ff16;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      display: block;
+      width: fit-content;
+    }
+
+    .hack-button + .hack-button {
+      margin-top: 10px;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .name-container {
+      font-size: 150px;
+      color: #00ff16;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 10px;
+      text-shadow: 0 0 20px #00ff16;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="ubarrosCanvas"></canvas>
+
+<div class="name-container">
+  ubarros
+</div>
+
+<div class="hack-frame">
+  <div class="glitchLine">██▒▒ ubarros ▒▒██</div>
+  <div class="glitchLine">▒▒██▒▒ Welcome ▒▒██▒</div>
+  <a href="https://www.instagram.com/cristianobarrosyt/" target="_blank">
+    <button class="hack-button">Instagram</button>
+  </a>
+  <a href="https://www.youtube.com/c/uBARROS7" target="_blank">
+    <button class="hack-button">YouTube</button>
+  </a>
+  <a href="https://www.tiktok.com/@cristianobarrosyt" target="_blank">
+    <button class="hack-button">TikTok</button>
+  </a>
+  <a href="https://www.twitch.tv/ubarross" target="_blank">
+    <button class="hack-button">Twitch</button>
+  </a>
+</div>
+
+<script>
+  const canvas = document.getElementById("ubarrosCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  canvas.width = width;
+  canvas.height = height;
+
+  const names = [];
+
+  for (let i = 0; i < 60; i++) {
+    names.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 30 + 10,
+      speed: Math.random() * 0.5 + 0.2,
+      opacity: Math.random() * 0.5 + 0.3
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let name of names) {
+      ctx.font = `${name.size}px monospace`;
+      ctx.fillStyle = `rgba(0, 255, 22, ${name.opacity})`;
+      ctx.fillText("ubarros", name.x, name.y);
+
+      name.y += name.speed;
+      if (name.y > height) {
+        name.y = -20;
+        name.x = Math.random() * width;
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  window.addEventListener("resize", () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  });
+</script>
+
+</body>
+</html>
